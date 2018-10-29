@@ -1,0 +1,245 @@
+<html>
+    <head>
+                <!-- <style>
+                .ddddddd {
+                    list-style-type: armenian;
+                }
+                </style> -->
+
+        <style>
+            .one {
+                text-align: center;
+                border: 10px dashed #000;
+                padding: 50px;
+                background: #303030;
+                background-clip: padding-box;
+            }
+            .two {
+                border: 10px solid #000;
+            }
+            body {
+    background-image: url(./img/res.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center; 
+            }
+        </style>
+    </head>
+    <body>
+      <div class="imageres"></div>
+      <div class="one">
+        Research Plan
+        ● Student Name : Heejun Lee, Jonghyeon Ham
+       ● Project Title : Neural Action: A Real-time and Accurate Gaze Tracking Application for a More Natural Human-Computer Interaction with User Interfaces
+       ● Rationale
+       Computers that using keyboards and mouse can be difficult to use for people with physical disabilities, who are unable or unwilling to use their hand. To improve this problem, some accessibility tools such as screen narrator exist but recently computer usage environment is changing from the fixed using such as workstation by a mobile device. With these changes, it became necessary to develop a new version of the keyboard-based accessibility tools such as narrator so that they can be used without difficulty in various environments like a mobile.
+       For this reason, application such as voice secretaries have been introduced that allow the use of smartphones by asking question and ordering operation. However, there are some problems such as an environmental noise, an impression of an individual, or a case where it is impossible to say especially a disability of speaking. Also, there is a disadvantage that it is very difficult and not free to operate a computer application like ordinary mouse and keyboard. To improve this approach, gaze tracking is expected to be effective.
+       Previous gaze tracking technologies depend on specialized hardware such as stereo cameras and high-definition cameras and it increases the cost. Also, many of them have large tracking errors so they are hard to be used as an input method of Human-Computer Interaction (HCI). In addition, some gaze trackers are based on legacy image processing algorithms, but they have a problem in that tracking error occurs due to data loss or noise inevitably caused by the designers, because models are designed by manually. To solve these problems, we have developed our gaze-tracking technology using only ordinary webcams without special equipment with neural network.
+       Thus, in contrast to speech recognition, we believe that using gaze tracking will allow users to use computers without being affected by large environmental noise and without being significantly affected by physical disabilities. Also, we think if the gaze replaces mouse cursor and eye blink replaces mouse clicks, then users could easily replace the mouse to the eyes as a general input method. Therefore, this research proposes a human-computer interaction (HCI) tool that use gaze tracking.
+       ● Project Question
+       1. How to replace mouse and keyboard functions based on gaze tracking?
+       
+        2. How accurate is gaze tracking to replace a mouse function?
+       3. How to collect and process the data-set used to train gaze tracking model?
+       4. How to reduce the error caused by the environment noise?
+       5. What are applications can do with gaze tracking?
+       6. Can we use gaze tracking for real application?
+       ● Procedure
+       1) Build Gaze Input System
+       a) Gaze Tracking
+       Our goal of gaze tracking is to create a high-accuracy gaze tracker on a low-performance computer with only a single webcam. In order to this, it is judged that the neural network which automatically optimizes the model and gives the best accuracy is most suitable, and the gaze tracking will be trained by using the convolutional neural network used for image processing.
+       1. Collect data
+       a. Collect Participant - We will collect data-set with our dataset collecting
+       application, and for more various dataset, we will ask nearby friends and
+       family to collect their data.
+       b. We collect an image that shows a participant who looking at a point on screen
+       after place RGB webcam at top-center of screen, like laptop.
+       c. To make more effective data-set, we control background light, move a place
+       where taking picture, and change kind of webcam.
+       2. Pre-process data
+       a. Save cropped part of image that used on neural network training to protect privacy of participants.
+       b. We used OpenCV and OpenFace to detect face and eyes where should we crop.
+       c. Separate 10% of pre-processed data-set for test data-set.
+       3. Model train and optimize
+       a. Apply image augmentation -change brightness, contrast, and noise of image in randomly- for more data variance.
+       b. Start network training with simple network architecture at first.
+       c. Training model with training data-set by TensorFlow.
+       d. Evaluate the performance of the model and repeat the process of retraining
+       after model optimization to make the best performance model.
+       4. Deploy trained model
+       a. Develop a library which contains OpenCV, TensorFlow, and OpenFace for running trained neural network model on front-end application.
+       b. Port code-bases and write library like (4.a) to run the model on mobile.
+       
+        c. Correct the error value using linear regression to correct deviations caused by environmental changes during actual use - such as brightness, contrast, noise, etc.
+       b) Eye Blink Classification
+       In image classification tasks, convolutional neural networks show very high accuracy, and we have used it to create eye blinking classification. The model will be learned by collected two classes of the image that the eyes closed and the eyes opened.
+       1. Collect and pre-process data
+       a. Collect data-set images by extracting frame of captured videos.
+       b. Capture images of the closed eye and opened eye individually.
+       c. Crop and save only the eye image by OpenCV and OpenFace.
+       2. Train and optimize model just like (3) of Gaze Tracking
+       3. Deploy model just like (4) of Gaze Tracking
+       2) Develop front-end application
+       a) To deal with keyboard features
+       We will design the keyboard into a new circle shape rather than the existing keyboard to handle the keyboard function optimized for gaze tracking. If users use a keyboard with gaze tracking technology, you can expect to find it difficult to type the key quickly with gaze because you have to move more distances and find and press the keyboard without regularity. In addition, due to the shape of the legacy keyboard, the length of the keyboard is very long and the size of each key is small. On the contrary, if a circular layout is used, it is possible to predict that the keyboard layout is not largely deviated from the user's viewpoint, all the key sizes are uniform and the typo miss is hard to occur, the words are combined with regularity, and the word-autocomplete feature is easy to use.
+       1. Design keyboard
+       a. We designed logical and practical the keyboard optimized for gaze tracking in
+       the form of a circular keyboard.
+       2. Develop word autocomplete for faster and accurate typing in multi language
+       a. We develop keysets to support various languages besides English and Korean.
+       b. We add autocomplete function to support quick and accurate input, words that are frequently used can be showed and used more quickly and practically, and
+       words not registered in the database, Automatically add.
+       3. Develop key input layer
+       a. Development based on C # WPF, we develop a method to input characters into a computer through the Sendkey method.
+       
+        b) To deal with mouse features
+       The mouse function supports mouse clicks by eye blinking and can be set to detect left eye or right eye in order to ignore naturally eye blinks for suitable gaze tracking. With shortcut menus, users can run such as shortcut keys and mouse gestures that are difficult to perform with just gaze tracking and can perform tasks such as copying, mouse scrolling, dragging, double-clicking, right-clicking, keyboard opening.
+       1. Design mouse cursor and shortcut menu
+       a. The mouse goes along the line of sight and makes it possible to operate softly
+       and at high speed with the smoothing option using the Kalman filter and
+       statistics.
+       b. The shortcut menu is designed to a circle shaped menu specialized for gaze
+       tracking.
+       3) Develop Practical Features for in Real-life Usages
+       In fact, we have made several plans to use a common computer app using gaze tracking. The UI Interactions function automatically detects the UI elements on the screen and allows users to open the keyboard, magnet, scroll, and drag actions depending on the element. The magnifying glass is designed for people with low vision, and longtime gaze tracking occurs fatigue. So we have made eye-exercise function.
+       a) UI Interactions
+       1. An action to be executed is determined for each UI element
+       2. Using the method of Windows Accessibility API that import UI elements on the
+       display, programmatically generate an event when the UI is clicked.
+       3. When the UI click event occurs, development it to take action according to the type of
+       the element
+       b) Magnifiers
+       1. Using the Window Magnifier API, the current mouse location so that it develops to
+       scale the screen to a constant centered.
+       2. Developing that the cursor goes along the line of sight.
+       c) Eyes Exercise
+       1. First, determine the direction which the eyes to exercise and obtain the direction of
+       the line of sight.
+       2. Request that the direction of the line of sight and the direction in which exercise the
+       eyes are the same, repeat this for 5 seconds
+       
+        3. Development that you can take a break for 10 seconds in the middle through an eye-blink check.
+       ● Milestone
+        Project Starting.
+        03.09
+        Planning Project and Preparing Team Foundations.
+          ~03.10
+          Development Cross-platform machine learning and CV library.
+            ~04.20
+          Development Dataset Collector.
+            ~05.30
+        Collection Datasets.
+         ~06.20
+        Development Learning Machine Neural Network.
+          ~07.10
+          Learning Neural Network.
+            ~07.25
+          Development Gaze Tracking library.
+            ~08.15
+        Development start “Neural Action”
+         ~08.16
+        Development specialized Mouse Application for Gaze Tracking.
+          ~08.25
+          Development specialized Keyboard Application for Gaze Tracking.
+            ~09.10
+          Development Word Autocomplete.
+            ~09.25
+          Development Shortcut Menu.
+            ~10.10
+          Development Eyes Exercise.
+            ~10.20
+          Development Magnifiers App.
+            ~11.10
+          Development UI Interactions.
+            ~12.10
+        Project Finishing.
+         ~12.28
+       ● Engineering Goals
+       
+        The first goal is to improve the accuracy of gaze tracking and speed of the model and optimize it, and then, you can substitute the keyboard and mouse you are currently manipulating to manipulate the real computer with your eyes.
+       The second goal is to develop a variety of specialized apps for gaze tracking to make various benefits to all computer users.
+       ● Risk Assessment
+       1. Participant safety issues were explained Human participants research.
+       ● Data Analysis
+       Analysis accuracy of neural networks
+       1. Find the average accuracy of the test dataset of the learned neural network model.
+       2. In order to evaluate the variance of the learned neural network model, an error
+       between the label of the test data and the value of the neural network is obtained and the error distance of the two-dimensional image (monitor) is indicated by an arrow in the graph.
+       Speed of tracking
+       1. Excluding such as camera input/output, normalization of data, etc. measure the time
+       to input the data to the neural network and output it, the inference of the neural network. at the time of execution of the developed program, and measure the frame per second Calculated.
+       
+        ● Bibliography
+       [1] T. Baltrušaitis, P. Robinson, and L.P. Morency. "Openface: an Open Source Facial Behavior Analysis Toolkit." Applications of Computer Vision (WACV), 2016 IEEE Winter Conference on, pp. 1-10, .2016.
+       [2] G. Klambauer, T. Unterthiner, A. Mayr, S. Hochreiter, “Self-Normalizing Neural Networks” arXiv preprint, arXiv:1706.02515, 2017.
+       [3] A.G.. Howard, M. Zhu, B. Chen, D. Kalenichenko, W. Wang, T. Weyand, et al. "Mobilenets: Efficient Convolutional Neural Networks for Mobile Vision Applications." arXiv preprint, arXiv:1704.0486, 2017.
+       [4] X. Zhang, Y. Sugano, M. Fritz, A. Bulling, “Appearance-based Gaze Estimation in the Wild”, Proceeding of the IEEE Conference on Computer Vision and Pattern Recognition, p.4511-4520, 2015.
+       [5] Python(2017). python.org (accessed Oct., 10, 2017)
+       [6] Trustees of Boston College. “Camera Mouse” (2018). www.cameramouse.org/ (accessed
+       Jan., 18, 2018).
+       [7] Intel Open Source. “ACAT” (2016). 01.org/acat (accessed Jan., 18, 2018).
+       [8] Eye Type. “Eye Type” (2016). http://apk-dl.com/eye-type/ (accessed Jan., 18, 2018).
+       
+        ● Human participants research
+       1. Participants
+       a. Age-range : 15~18
+       b. Gender : 1 Female, 8 Male (2 of males are us --researchers--.)
+       c. Racial/ethnic composition of participants : 2 Hungarian, 7 Korean (2 of
+       Korean are us.)
+       d. Identify vulnerable populations : None
+       2. Recruitment
+       a. We asked to our friends, and participate ourselves too.
+       3. Methods
+       a. Participants collect RGB webcam images for each gaze directions.
+       b. The dataset collector shows random positions of the screen every second.
+       Participants will see each position and camera will collect images of face each
+       time the position changes.
+       c. Datasets will collect in thousand sheets at a time and takes about 20 minutes.
+       d. With the exception of researchers, we collected about 2,000 datasets per
+       participant.
+       4. Risk Assessment
+       a. Privacy issue
+       i. Participants were informed that their data would be used for research
+       prior to participation, and after they understood the contents of the
+       research, they received a written consent.
+       ii. All collected initial data are managed by giving a random ID so as not
+       to be associated with each participant and the recorded data is stored in the image as the time of photographing, model, camera, monitor specification, a line of sight Position.
+       iii. Data was delivered via a Web server protected with a private account and stored on a password-protected computer.
+       iv. Data that had been pre-processed did not contain background at all and only saved images crops necessary for neural network learning.
+       5. Protection of Privacy
+       a. (4.a) As We explained, We tried my best to avoid privacy invasion problems.
+       6. Informed Consent Process
+       a. We informed participants our research plan and recommended to participate if
+       they are interested.
+       b. Participants were able to contact researchers at any time by e-mail, telephone,
+       text and express their intention to stop research.
+       
+        Project Summary
+        ● Student Name : Heejun Lee, Jonghyeon Ham
+       ● Project Title : Neural Action: A Real-time and Accurate Gaze Tracking Application for a More Natural Human-Computer Interaction with User Interfaces
+       ● Changes on Procedure
+       1) Neural Network Optimizing
+       a) Select model calculation normalization method
+       i) Batch normalization and self-normalization Neural networks with a choice of blink classification, gaze tracking, try to see the accuracy of each technology and choice better technology.
+       b) Reaching the limit to increase the accuracy when optimizing the model, the type of data input used by the model was adjusted to multiple cases and then re-learned.
+       i) Case 1 - A cropped image of left eye : It is the first model designed.
+       ii) Case 2 - Cropped images of left and right eyes : Extract features using CNN for each eye using both eyes and tracks the line of sight with the
+       features of both eyes using the Fully connected network.
+       iii) Case 3 - Cropped image of left and right eyes and full face : It shows
+       the highest accuracy.
+       c) When trying to optimize the accuracy worth satisfying the model, the
+       execution speed was not good
+       i) We applied MobileNet to reduce the computational cost of the neural
+       network and increase execution speed.
+       
+      </div>
+
+
+      <div class="two">
+awdawmdlkawmdklawmdlkawmdlkawm
+awdawmdlkawmdklawmdlkawmdlkawmdmaw;d
+        </div>
+
+    </body>
+</html>
