@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <style>
+          .box {
+            position: absolute;
+            left: 500px;
+            top: 500px;
+            width: 300px;
+            height: 100px;
+            background: pink;
+            animation-name: rotation;
+            animation-duration: 2s;
+            animation-iteration-count:infinite;
+            animation-direction: alternate;
+          }
+          @keyframes rotation {
+            from {
+              transform: rotate(45deg);
+              opacity: 0;
+            }
+            to {
+              transform: rotate(0deg);
+              transform: scale(3, 3);
+              opacity: 1;
+            }
+          }
+        </style>
+    </head>
+    <body>
+
+      <div class="box">
+        awdawdawd
+      </div>
+      
+    </body>
+</html>
